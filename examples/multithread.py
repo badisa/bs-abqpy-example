@@ -2,6 +2,16 @@ import threading
 import urllib
 import time
 from bs4 import BeautifulSoup
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('number', type=int, help='Number of Poems to Scrape')
+parser.add_argument(
+    'count',
+    type=int,
+    help='Number of Loops in Each Thread',
+    default=0)
+args = parser.parse_args()
 
 poemSem = threading.Semaphore()
 poemSem.poems = []
@@ -33,17 +43,17 @@ class GetTopPoem(threading.Thread):
                 br.append('\n')
                 br.unwrap()
             title = poem.get('data-text')
-            body = poem.p.get_text()
+            body = poem.p.extract().prettify()
             poemSem.poems.append([title, body])
 
 
-def main(num, count=1):
+def main(num, count):
     num = num / count
     for i in xrange(num):
         thread = GetTopPoem(i, num, count)
-        print i
         thread.start()
     time.sleep(2)
     print poemSem.poems, len(poemSem.poems)
 
-main(6, 2)
+
+main(args.number, args.count)

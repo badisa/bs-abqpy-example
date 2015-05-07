@@ -1,0 +1,48 @@
+Experimenting with Beautiful Soup on the WikiPedia Home Page
+
+
+Import the Necessary Libraries
+-----
+	import urllib
+	from bs4 import BeautifulSoup
+
+Retrieve Wikipedia HomePage and Soupify It
+-----
+	page = urllib.urlopen('http://en.wikipedia.org/wiki/Main_Page').read()
+	soup = BeautifulSoup(page)
+
+Call children on the Soup
+-----
+	soup.head
+	soup.html
+	soup.body
+	soup.div
+
+	Finds the first instance of tag and returns it
+
+Get Children of a Tag
+-----
+	soup.body.div - Grabs the first div tag in the body
+	soup.head.title
+
+Get String/Text of a Tag
+-----
+	soup.title.string - Works if only one child and it's a NavigableString 
+	soup.p.get_text() - Works more generally, returns Unicode, not Object
+
+
+Get Linked Articles from Wikipedia Home Page
+-----
+	tags = soup.find('table', id='mp-upper').find_all('b')
+	- Wikipedia Wraps their links in bold tags
+
+	Loop Over <b> tags and store in array
+	----
+	urls = []
+	for tag in tags:
+		if tag.a and tag.a.get('href'):
+			urls.append(tag.a.get('href'))
+
+	Now you have all of the Article Links on the home page. You also have a few extra, which you can then further filter out as you need.
+
+
