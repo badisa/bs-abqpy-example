@@ -5,7 +5,10 @@ from bs4 import BeautifulSoup
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('number', type=int, help='Number of Poems to Scrape')
+parser.add_argument(
+    'number',
+    type=int,
+    help='Number of Poems to Scrape')
 parser.add_argument(
     'count',
     type=int,
@@ -46,13 +49,22 @@ class GetTopPoem(threading.Thread):
             body = poem.p.extract().prettify()
             poemSem.poems.append([title, body])
 
+'''Thread Pool
+Join on the thread pool - Take a look at this.
+
+Consider doing a queue version. None blocking get and get exception then it is empty
+'''
+
 
 def main(num, count):
     num = num / count
+    thread_list = []
     for i in xrange(num):
         thread = GetTopPoem(i, num, count)
         thread.start()
-    time.sleep(2)
+        thread_list.append(thread)
+    for thread in thread_list:
+        thread.join()
     print poemSem.poems, len(poemSem.poems)
 
 
