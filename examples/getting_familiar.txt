@@ -1,10 +1,20 @@
 Experimenting with Beautiful Soup on the WikiPedia Home Page
 
 
+BenchMarks
+-----
+http://www.crummy.com/2012/01/22/0
+
+Check Bottom Regarding Unicode/UTF-8
+
 Import the Necessary Libraries
 -----
 	import urllib
 	from bs4 import BeautifulSoup
+
+Alternative Request Libaries
+=====
+urllib2, requests
 
 Retrieve Wikipedia HomePage and Soupify It
 -----

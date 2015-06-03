@@ -49,12 +49,6 @@ class GetTopPoem(threading.Thread):
             body = poem.p.extract().prettify()
             poemSem.poems.append([title, body])
 
-'''Thread Pool
-Join on the thread pool - Take a look at this.
-
-Consider doing a queue version. None blocking get and get exception then it is empty
-'''
-
 
 def main(num, count):
     num = num / count
