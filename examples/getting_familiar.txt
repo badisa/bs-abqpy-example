@@ -56,3 +56,7 @@ Get Linked Articles from Wikipedia Home Page
 	Now you have all of the Article Links on the home page. You also have a few extra, which you can then further filter out as you need.
 
 
+Notes***
+urlparse library
+
+
